@@ -3,6 +3,7 @@
 ### 预览
 
 ![](./stare.gif)
+
 [在线演示](http://seejs.me/eyes/demo/index.html)
 
 ### 使用
