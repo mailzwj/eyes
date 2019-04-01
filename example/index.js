@@ -14,6 +14,12 @@ class Demo extends Component {
         return (
             <div className="cw" id="J_CW">
                 <Eyes color="#f50" />
+                <div className="sm">
+                    <Eyes />
+                </div>
+                <div className="mini">
+                    <Eyes color="red" />
+                </div>
             </div>
         );
     }
