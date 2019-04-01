@@ -119,7 +119,7 @@ class Eyes extends Component {
                 const dy = mp.y - p.ry - rect.top;
                 const delta = atan(dy / dx);
                 const { color } = this.props;
-                p.degree = dx > 0 ? delta : PI + delta;
+                p.degree = dx >= 0 ? delta : PI + delta;
                 this.ctx.clearRect(0, 0, this.cvs.width, this.cvs.height);
                 drawCircles(this.ctx, this.circles, { color, lineWidth: this.lineWidth });
                 drawPoints(this.ctx, points, { color });
