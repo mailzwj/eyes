@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 
 import './index.less';
 
+const { atan, floor, PI } = Math;
+
 const drawCircles = (ctx, circles, cfgs) => {
     ctx.save();
     ctx.strokeStyle = cfgs.color;
@@ -9,7 +11,7 @@ const drawCircles = (ctx, circles, cfgs) => {
     circles.forEach(c => {
         ctx.moveTo(c.cx + c.r, c.cy);
         ctx.beginPath();
-        ctx.arc(c.cx, c.cy, c.r - cfgs.lineWidth / 2, 0, 2 * Math.PI);
+        ctx.arc(c.cx, c.cy, c.r - cfgs.lineWidth / 2, 0, 2 * PI);
         ctx.closePath();
         ctx.stroke();
     });
@@ -20,10 +22,14 @@ const drawPoints = (ctx, points, cfgs) => {
     ctx.save();
     ctx.fillStyle = cfgs.color;
     points.forEach(p => {
-        ctx.moveTo(p.cx + p.r, p.cy);
+        ctx.moveTo(p.cx, p.cy);
+        ctx.translate(p.rx, p.ry);
+        ctx.rotate(p.degree);
         ctx.beginPath();
-        ctx.arc(p.cx, p.cy, p.r, 0, 2 * Math.PI);
+        ctx.arc(p.cx - p.rx - p.r, p.cy - p.ry, p.r, 0, 2 * PI);
         ctx.closePath();
+        ctx.rotate(-p.degree);
+        ctx.translate(-p.rx, -p.ry);
         ctx.fill();
     });
     ctx.restore();
@@ -32,6 +38,8 @@ const drawPoints = (ctx, points, cfgs) => {
 class Eyes extends Component {
     constructor(props) {
         super(props);
+        this.maxWidth = 400;
+        this.lineWidth = 2;
     }
 
     componentDidMount() {
@@ -42,12 +50,15 @@ class Eyes extends Component {
     }
 
     setCvs() {
+        const { maxWidth } = this;
+        const { PI } = Math;
         const rect = this.parentEl.getBoundingClientRect();
-        const cvsWidth = rect.width > 400 ? 400 : rect.width;
-        const cvsHeight = Math.floor(cvsWidth / 2);
+        const cvsWidth = rect.width > maxWidth ? maxWidth : rect.width;
+        const cvsHeight = floor(cvsWidth / 2);
         const oneOfFour = cvsWidth / 4;
         const r = cvsHeight / 2;
-        const rr = 15;
+        let rr = 20 * cvsWidth / maxWidth;
+        rr = rr < 2 ? 2 : rr;
         this.cvs.width = cvsWidth;
         this.cvs.height = cvsHeight;
         this.circles = [
@@ -64,25 +75,31 @@ class Eyes extends Component {
         ];
         this.points = [
             {
-                cx: oneOfFour,
-                cy: cvsHeight - rr,
-                r: rr
+                cx: oneOfFour + r - this.lineWidth, // 圆心X
+                cy: cvsHeight / 2, // 圆心Y
+                rx: oneOfFour, // 旋转X
+                ry: cvsHeight / 2, // 旋转Y
+                r: rr, // 圆半径
+                degree: PI / 2 // 旋转弧度
             },
             {
-                cx: 3 * oneOfFour,
-                cy: cvsHeight - rr,
-                r: rr
+                cx: 3 * oneOfFour + r - this.lineWidth,
+                cy: cvsHeight / 2,
+                rx: 3 * oneOfFour,
+                ry: cvsHeight / 2,
+                r: rr,
+                degree: PI / 2
             }
         ];
+        this.ctx = this.cvs.getContext('2d');
     }
 
     drawEyes() {
         const { color = '#000' } = this.props;
-        const { circles, points } = this;
-        const ctx = this.cvs.getContext('2d');
+        const { circles, points, ctx } = this;
         drawCircles(ctx, circles, {
             color,
-            lineWidth: 2
+            lineWidth: this.lineWidth
         });
         drawPoints(ctx, points, {
             color
@@ -95,7 +112,18 @@ class Eyes extends Component {
                 x: ev.clientX,
                 y: ev.clientY
             };
-            console.log(mp);
+            const rect = this.cvs.getBoundingClientRect();
+            const { points } = this;
+            points.forEach(p => {
+                const dx = mp.x - p.rx - rect.left;
+                const dy = mp.y - p.ry - rect.top;
+                const delta = atan(dy / dx);
+                const { color } = this.props;
+                p.degree = dx > 0 ? delta : PI + delta;
+                this.ctx.clearRect(0, 0, this.cvs.width, this.cvs.height);
+                drawCircles(this.ctx, this.circles, { color, lineWidth: this.lineWidth });
+                drawPoints(this.ctx, points, { color });
+            });
         }, false);
     }
 
