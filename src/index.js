@@ -35,7 +35,7 @@ const drawPoints = (ctx, points, cfgs) => {
     ctx.restore();
 };
 
-class Eyes extends Component {
+class CvsEyes extends Component {
     constructor(props) {
         super(props);
         this.maxWidth = 400;
@@ -139,4 +139,4 @@ class Eyes extends Component {
     }
 }
 
-export default Eyes;
+export default CvsEyes;

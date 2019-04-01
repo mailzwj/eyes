@@ -1,7 +1,7 @@
 {
-  "name": "eyes",
+  "name": "cvs-eyes",
   "version": "1.0.0",
-  "description": "",
+  "description": "一双永远盯着鼠标的卡通眼睛...",
   "main": "dist/index.min.js",
   "scripts": {
     "dev": "webpack --config ./config/dev.js --watch",
@@ -15,7 +15,8 @@
   "repository": "https://github.com/mailzwj/eyes.git",
   "keywords": [
     "animate",
-    "eye"
+    "eye",
+    "canvas"
   ],
   "license": "ISC",
   "devDependencies": {

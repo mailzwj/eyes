@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 
-import Eyes from '../src';
+import CvsEyes from '../src';
 
 import './index.less';
 
@@ -13,12 +13,12 @@ class Demo extends Component {
     render() {
         return (
             <div className="cw" id="J_CW">
-                <Eyes color="#f50" />
+                <CvsEyes color="#f50" lineWidth={4} />
                 <div className="sm">
-                    <Eyes />
+                    <CvsEyes />
                 </div>
                 <div className="mini">
-                    <Eyes color="red" />
+                    <CvsEyes color="#39f" />
                 </div>
             </div>
         );

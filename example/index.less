@@ -9,15 +9,31 @@ body {
     margin: 0;
 
     .cw {
+        position: relative;
         font-size: 12px;
+
+        &:after {
+            position: absolute;
+            left: 50%;
+            top: 210px;
+            margin: 0 auto;
+            content: '';
+            transform: translate(-50%, 0);
+            width: 200px;
+            height: 60px;
+            border: 4px solid transparent;
+            border-bottom: 4px solid #f50;
+            border-radius: ~'600px/200px';
+        }
     }
 
     .sm {
+        padding-left: 20%;
         width: 200px;
     }
 
     .mini {
-        margin: 0 auto;
-        width: 32px;
+        margin: -32px 0 0 60%;
+        width: 64px;
     }
 }
