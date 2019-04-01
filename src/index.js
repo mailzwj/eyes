@@ -7,7 +7,7 @@ const { atan, floor, PI } = Math;
 const drawCircles = (ctx, circles, cfgs) => {
     ctx.save();
     ctx.strokeStyle = cfgs.color;
-    ctx.lineWidth = cfgs.lineWidth + 'px';
+    ctx.lineWidth = cfgs.lineWidth;
     circles.forEach(c => {
         ctx.moveTo(c.cx + c.r, c.cy);
         ctx.beginPath();
@@ -52,6 +52,7 @@ class Eyes extends Component {
     setCvs() {
         const { maxWidth } = this;
         const { PI } = Math;
+        const { lineWidth = 2 } = this.props;
         const rect = this.parentEl.getBoundingClientRect();
         const cvsWidth = rect.width > maxWidth ? maxWidth : rect.width;
         const cvsHeight = floor(cvsWidth / 2);
@@ -61,6 +62,7 @@ class Eyes extends Component {
         rr = rr < 2 ? 2 : rr;
         this.cvs.width = cvsWidth;
         this.cvs.height = cvsHeight;
+        this.lineWidth = lineWidth;
         this.circles = [
             {
                 cx: oneOfFour,
