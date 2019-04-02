@@ -1,6 +1,6 @@
 const path = require('path');
 const base = require('./base');
-const uglify = require('uglifyjs-webpack-plugin');
+// const uglify = require('uglifyjs-webpack-plugin');
 const htmlPlugin = require('html-webpack-plugin');
 
 base.mode = 'development'; // production
@@ -30,9 +30,9 @@ base.devServer = {
     inline: true,
     historyApiFallback: true
 };
-base.plugins.push(new uglify({
-    sourceMap: true
-}));
+// base.plugins.push(new uglify({
+//     sourceMap: true
+// }));
 base.plugins.unshift(new htmlPlugin({
     template: 'example/index.html',
     chunks: ['common', 'index'],
