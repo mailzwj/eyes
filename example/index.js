@@ -15,10 +15,10 @@ class Demo extends Component {
             <div className="cw" id="J_CW">
                 <CvsEyes color="#f50" lineWidth={4} />
                 <div className="sm">
-                    <CvsEyes />
+                    <CvsEyes radius={20} />
                 </div>
                 <div className="mini">
-                    <CvsEyes color="#39f" />
+                    <CvsEyes color="#39f" radius={100} />
                 </div>
             </div>
         );

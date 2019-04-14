@@ -16,7 +16,7 @@
     ```js
     import CvsEyes from 'cvs-eyes';
     ...
-    <CvsEyes color="#f50" lineWidth={4} />
+    <CvsEyes color="#f50" lineWidth={4} radius={8} />
     ...
     ```
 
@@ -30,7 +30,8 @@
     (function() {
         const Eyes = React.createElement(CvsEyes.default, {
             color: '#39f',
-            lineWidth: 2
+            lineWidth: 2,
+            radius: 100
         });
         ReactDOM.render(Eyes, document.querySelector('#root');
     }();
@@ -41,3 +42,4 @@
 
 * `color<String>`: 合法的颜色值，包括`rgba`、`rgb`或`hex`;
 * `lineWidth<Number>`: 眼圈线宽度，建议整偶数。
+* `radius<Number>`: 指定眼球半径，默认值根据眼眶大小按比例自动缩放，最大值不超过`眼眶半径 - 2 * 眼眶线宽`。

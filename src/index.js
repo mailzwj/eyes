@@ -58,8 +58,10 @@ class CvsEyes extends Component {
         const cvsHeight = floor(cvsWidth / 2);
         const oneOfFour = cvsWidth / 4;
         const r = cvsHeight / 2;
-        let rr = 20 * cvsWidth / maxWidth;
+        // let rr = 20 * cvsWidth / maxWidth;
+        let rr = +this.props.radius || 20 * cvsWidth / maxWidth;
         rr = rr < 2 ? 2 : rr;
+        rr = rr >= r ? r - 2 * lineWidth : rr;
         this.cvs.width = cvsWidth;
         this.cvs.height = cvsHeight;
         this.lineWidth = lineWidth;
