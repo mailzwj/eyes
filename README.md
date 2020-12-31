@@ -4,7 +4,7 @@
 
 ![](./stare.gif)
 
-[在线演示](http://seejs.me/eyes/demo/index.html)
+[在线演示](http://newjs.vip/eyes/demo/index.html)
 
 ### 使用
 
